@@ -1,0 +1,707 @@
+/*
+Theme Name: Good Dogs
+Author: Jen Downs
+Author URI: https://jendowns.com/
+Description: WordPress theme for http://jen.li/good-dogs
+Version: 1.0
+*/
+
+
+/* -----------------------------
+		MAIN SITE STYLES:
+		1. General Styles
+		2. Utility Classses
+		3. Nav
+		4. Header
+		5. Dog Sections
+		6. Extra Page/Templates
+		7. Mobile Styles
+----------------------------- */
+
+
+
+@import 'reset.scss';
+@import 'fonts.scss';
+@import 'variables.scss';
+@import 'mixins.scss';
+
+
+
+/* -------------------------
+		1. Generic Styles
+----------------------------*/
+
+*,
+*:after,
+*:before {
+  @include box-sizing(border-box);
+}
+
+html {
+	font-family: sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	font-size: 10px; // baseline
+}
+
+body, section, div, p, li, a, span {
+	@include calc-font-flow(18);
+	font-family: $font--body;
+	color: $color--text;
+}
+
+section, header {
+	padding-top: $--baseline * 3 + px;
+	padding-bottom: $--baseline * 3 + px;
+	padding-left: 0;
+	padding-right: 0;
+	display: block;
+}
+
+footer {
+	background-color: $color--dark;
+	padding: $--baseline * 2 + px;
+}
+
+p {
+	margin-bottom: $--baseline + px;
+	text-align: left;
+}
+
+a {
+	color: $color--link;
+	font-weight: 700;
+	font-family: $font--body;
+	text-decoration: none;
+
+	&:hover, &:focus {
+		color: darken($color--link, 10%);
+		text-decoration: none;
+		border-bottom: 2px solid $color--link;
+	}
+
+	&:not(.button):hover,
+	&:not(.button):focus {
+		padding-bottom: 1px;
+	}
+}
+
+a {
+	@include transition(all, 200ms);
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+h1, h2, h3, h4 {
+	color: $color--heading;
+	font-family: $font--heading;
+}
+
+h1 {
+	font-size: 90px;
+	line-height: 90px;
+	line-height: 9rem;
+	font-family: $font--title;
+	margin-top: 0px;
+	margin-bottom: $--baseline + px;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+	@include calc-font-flow(40);
+	font-weight: 700;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+h3 {
+	@include calc-font-flow(20);
+	font-style: italic;
+	font-weight: 700;
+	margin-top: 0px;
+	margin-bottom: $--baseline + px;
+}
+
+h4 {
+	@include calc-font-flow(24);
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: $--baseline + px;
+}
+
+small, small a {
+	font-size: 14px;
+	line-height: inherit;
+}
+
+strong {
+	font-weight: 700;
+}
+
+em {
+	font-style: italic;
+	font-family: $font--heading;
+}
+
+
+
+/* -------------------------
+		2. Utility Classes
+----------------------------*/
+
+.screen-reader {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	border: 0;
+}
+
+.center {
+	@include center-element;
+}
+
+.center-vertically {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.container {
+	width: 75%;
+	max-width: 750px;
+	margin: 0 auto;
+	padding: $--baseline + px 0;
+
+	&:after {
+		clear: both;
+	}
+}
+
+.flex-grid {
+	width: 100%;
+	max-width: 1500px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	.carousel_.carousel__slides {
+		flex: 1;
+	}
+	.carousel__controls {
+		flex: initial;
+		-webkit-flex: 0 1 auto; // specifically for iOS 8 era Safari
+	}
+}
+
+.grid-item--sm {
+	width: 33.3333333%;
+}
+
+.grid-item--lg {
+	width: 66.6666666%;
+}
+
+[class*="grid-item"] {
+	overflow: hidden;
+	position: relative;
+}
+
+
+
+/* -------------------------
+			3. Nav
+----------------------------*/
+
+// Applied w/ JS to show/hide the nav
+.nav--fade {
+	opacity: 0;
+	top: -50px;
+}
+
+nav {
+	padding: ($--baseline / 2 + px) ($--baseline * 2 + px);
+	opacity: 1;
+	@include transition(opacity, 0.5s);
+	position: fixed;
+	top: 0;
+	background-color: #fff;
+	z-index: 3;
+	width: 100%;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		text-align: left;
+		display: inline-block;
+	}
+
+	li {
+		display: inline-block;
+		padding: ($--baseline / 2 + px) ($--baseline + px);
+	}
+
+	// Luna's link
+	li:first-child { 
+		padding-left: 0;
+
+		a, span {
+			color: $color--luna-section;
+		}
+		a:hover, a:focus {
+			border-bottom: 2px solid $color--luna-section;
+			&, span {
+				color: darken($color--luna-section, 10%);
+			}
+		}
+	}
+	
+	// i.e., Ash's link
+	li:nth-child(2) { 
+		a, span {
+			color: $color--ash-section;
+		}
+		a:hover, a:focus {
+			border-bottom: 2px solid $color--ash-section;
+			&, span {
+				color: darken($color--ash-section, 10%);
+			}
+		}
+	}
+
+	//i.e., Daily Dog section link
+	li:nth-child(3){
+		padding-right: 0;
+		a, span {
+			color: $color--darkblue;
+		}
+		a:hover, a:focus {
+			border-bottom: 2px solid $color--darkblue;
+			&, span {
+				color: darken($color--darkblue, 10%);
+			}
+		}
+	}
+
+	.button {
+		@include border-radius(5);
+		padding: ($--baseline / 2 + px) ($--baseline + px);
+		color: $color--text;
+		background-color: $color--darkblue;
+		border: 0;
+		float: right;
+
+		&:hover, &:focus {
+			background-color: darken($color--darkblue, 10%);
+		}
+	}
+}
+
+
+
+/* -------------------------
+	4. Header
+----------------------------*/
+
+header {
+	// Pattern contains Icomoon.io icons from Linearicons, Linecons, and Feather & Stone collections
+	background-color: $color--darkblue;
+	background-image: url('images/pattern.png'), -webkit-linear-gradient(235deg, $color--lightblue 0%, $color--darkblue 97%);
+	background-image: url('images/pattern.png'), linear-gradient(-145deg, $color--lightblue 0%, $color--darkblue 97%);
+	background-size: 320px, contain;
+
+	.container {
+		text-align: center;
+	}
+}
+
+.wrapper--img {
+	width: 60%;
+	position: relative;
+	display: inline-block;
+	background-color: #fff;
+	border: 10px solid #fff;
+	@include transform(rotate(3deg));
+	box-shadow: 1px 2px 16px rgba(0,0,0,0.2);
+
+	img {
+		width: 100%;
+	}
+}
+
+@keyframes twinkle {
+	25% { @include transform(scale(0.8)); }
+	50% { @include transform(scale(1.0)); }
+	75% { @include transform(scale(0.8)); }
+}
+@-webkit-keyframes twinkle {
+	25% { @include transform(scale(0.8)); }
+	50% { @include transform(scale(1.0)); }
+	75% { @include transform(scale(0.8)); }
+}
+@-moz-keyframes twinkle {
+	25% { @include transform(scale(0.8)); }
+	50% { @include transform(scale(1.0)); }
+	75% { @include transform(scale(0.8)); }
+}
+@-ms-keyframes twinkle {
+	25% { @include transform(scale(0.8)); }
+	50% { @include transform(scale(1.0)); }
+	75% { @include transform(scale(0.8)); }
+}
+
+// The "sparkle" Twemoji (Twitter Emoji) is licensed under Create Commons
+// SOURCE: https://commons.wikimedia.org/wiki/File:Twemoji_2728.svg
+.img--sparkle {
+	position: absolute;
+  display:block;
+	z-index: 2;
+
+  &:first-child {
+	  top: -30px;
+	  left: -40px;
+	  width: 90px;
+	  height: 90px;
+	  @include animate(twinkle, 2s, ease-out, infinite);
+  }
+  &:nth-child(2){
+	  top: 20px;
+	  right: -50px;
+	  width: 40px;
+	  height: 40px;
+	  @include animate(twinkle, 2s, ease-out, infinite);
+  }
+  &:nth-child(3){
+	  top: 100px;
+	  left: -60px;
+	  width: 50px;
+	  height: 50px;
+	  @include animate(twinkle, 2s, ease-out, infinite);
+  }
+  &:nth-child(4){
+	  bottom: -40px;
+	  right: 20px;
+	  width: 70px;
+	  height: 70px;
+	  @include animate(twinkle, 2s, ease-out, infinite);
+  }
+}
+
+
+/* -------------------------
+		5. Dog Sections
+----------------------------*/
+
+#ash {
+	background-color: $color--ash-section;
+
+	.fluid__overlay {
+		background-color: $color--ash;
+	}
+}
+
+#luna {
+	background-color: $color--luna-section;
+
+	.fluid__overlay {
+		background-color: $color--luna;
+	}
+}
+
+.img--intro {
+	padding: $--baseline  + px;
+	width: 250px;
+	height: 250px;
+}
+
+// Class for dog picture grid only
+.flex-grid--fluid {
+	padding-top: $--baseline * 3 + px;
+	padding-bottom: $--baseline * 3 + px;
+
+	img {
+		width: 100%;
+		height: 100%;
+		@include transform(scale(1.2));
+		@include transition(transform, 0.5s);
+	}
+
+	[class*="grid-item"]:hover, 
+	[class*="grid-item"]:focus {
+		img {
+			@include transform(scale(1.05));
+			@include transition(transform, 0.5s);
+		}
+		.fluid__overlay {
+			opacity: 1;
+		}
+	}
+}
+
+.fluid__overlay {
+	opacity: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	@include transition(opacity, 200ms);
+}
+
+.fluid__overlay__inner {
+	@include calc-font-flow(20);
+	display: block;
+	font-family: $font--heading;
+	font-weight: 700;
+	padding: $--baseline * 2 + px;
+	text-align: center;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	color: $color--text;
+}
+
+.carousel {
+	overflow: hidden;
+}
+
+.carousel.flex-grid {
+	flex-wrap: nowrap;
+}
+
+.carousel ul {
+	position: relative;
+	height: 250px;
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+
+.carousel .button {
+	@include calc-font-flow(40);
+	background-color: transparent;
+	display: block;
+	text-align: center;
+	padding: $--baseline + px;
+	margin: 0;
+	color: #fff;
+
+	&:hover, &:focus {
+		color: darken($color--link, 15%);
+		border-bottom: none;
+	}
+}
+
+.carousel__slides {
+	-webkit-box-flex: 2 0 auto;
+	-ms-flex: 2 0 auto;
+	flex: 2 0 auto;
+}
+
+.carousel__slide {
+	padding: 0px ($--baseline + px);
+  color: #fff;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: 1;
+	@include transition(opacity, 1s);
+
+	&.active {
+		opacity: 1;
+		z-index: 2;
+	}
+}
+
+
+/* --------------------------
+		7. Extra Pages/Templates
+------------------------- */
+
+.page, .single, .error404 {
+	section {
+		background-color: $color--luna-section;
+		min-height: 300px;
+	}
+}
+
+.error404 section {
+	height: 100%;
+	height: 100vh;
+}
+
+
+/* --------------------------
+		8. Mobile Styles
+------------------------- */
+
+@media (max-width: 768px) {
+
+	.hidden--medium {
+		display: none;
+		visibility: hidden;
+		width: 0px;
+		height: 0px;
+		overflow: hidden;
+		clip: rect(0,0,0,0);
+		border: 0;
+	}
+
+	.container {
+		width: 90%;
+	}
+
+	h1, h2, h3 {
+		text-align: center;
+	}
+
+	.wrapper--img {
+		margin: 0 auto;
+	}
+
+	.grid-item--sm {
+		width: 50%;
+	}
+
+	.grid-item--lg {
+		width: 100%;
+	}
+
+	.img--intro {
+		width: 200px;
+		height: 200px;
+		margin: 0 auto;
+	}
+
+	#luna, #ash {
+		.flex-grid:first-child > .grid-item--sm {
+			width: 100%;
+		}
+	}
+
+}
+
+
+@media (max-width: 576px) {
+
+	.hidden--mobile {
+		display: none;
+		visibility: hidden;
+		width: 0px;
+		height: 0px;
+		overflow: hidden;
+		clip: rect(0,0,0,0);
+		border: 0;
+	}
+
+	body, span, p, div {
+		@include calc-font-flow(16);
+	}
+
+	h1 {
+		font-size: 60px;
+		line-height: 60px;
+		line-height: 6rem;
+		text-align: center;
+	}
+
+	h2 {
+		@include calc-font-flow(30);
+	}
+
+	h3 {
+		@include calc-font-flow(20);
+	}
+
+	.wrapper--img {
+		width: 80%;
+	}
+
+	nav {
+		padding: ($--baseline / 2 + px) ($--baseline / 2 + px);
+
+		a {
+			@include calc-font-flow(14);
+		}
+
+		.button {
+			padding: ($--baseline / 2 + px) ($--baseline / 2 + px);
+		}
+
+		li {
+			padding: ($--baseline / 2 + px) ($--baseline / 2 + px) ($--baseline / 2 + px) 0px;
+		}
+	}
+
+	.img--intro {
+		width: 150px;
+		height: 150px;
+	}
+
+	.flex-grid {
+		display: block;
+	}
+
+	.flex-grid--fluid [class*="grid-item"] {
+		margin: ($--baseline / 2 + px) auto;
+		border: 1px solid $color--dark;
+		width: 95%;
+	}
+
+	.carousel ul {
+		height: auto;
+	}
+
+	.carousel__slide {
+		position: relative;
+		top: auto;
+		left: auto;
+		right: auto;
+		bottom: auto;
+		opacity: 1;
+		margin: ($--baseline + px) 0;
+
+		div {
+			@include calc-font-flow(16);
+		}
+
+		&:first-child {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.fluid__overlay {
+		top: auto;
+		height: auto;
+		opacity: 1;
+	}
+
+	.fluid__overlay__inner {
+		@include calc-font-flow(14);
+		padding: $--baseline + px;
+	}
+
+	#dailydog article {
+		width: 100%;
+	}
+}
+
+
+
+
+
