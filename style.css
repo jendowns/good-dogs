@@ -344,14 +344,6 @@ nav {
     border-bottom: 2px solid #14c597; }
     nav li:nth-child(2) a:hover, nav li:nth-child(2) a:hover span, nav li:nth-child(2) a:focus, nav li:nth-child(2) a:focus span {
       color: #0f9774; }
-  nav li:nth-child(3) {
-    padding-right: 0; }
-    nav li:nth-child(3) a, nav li:nth-child(3) span {
-      color: #27A8E9; }
-    nav li:nth-child(3) a:hover, nav li:nth-child(3) a:focus {
-      border-bottom: 2px solid #27A8E9; }
-      nav li:nth-child(3) a:hover, nav li:nth-child(3) a:hover span, nav li:nth-child(3) a:focus, nav li:nth-child(3) a:focus span {
-        color: #148cc9; }
   nav .button {
     border-radius: 5px;
     padding: 8px 16px;
@@ -708,7 +700,4 @@ header {
     font-size: 1.4rem;
     line-height: 22.4px;
     line-height: 2.24rem;
-    padding: 16px; }
-
-  #dailydog article {
-    width: 100%; } }
+    padding: 16px; } }

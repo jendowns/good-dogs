@@ -5,7 +5,6 @@
 	<ul>
 		<li><a href="#luna">Luna <span class="hidden--medium">the Aussie</span></a></li>
 		<li><a href="#ash">Ash <span class="hidden--medium">the Corgi</span></a></li>
-		<li><a href="#dailydog">Daily Dog</a></li>
 	</ul>
 	<a class="button" href="mailto:hello@jendowns.com">Say Hi! <i class="icon-paperplane"></i></a>
 </nav>

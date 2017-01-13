@@ -277,20 +277,6 @@ nav {
 		}
 	}
 
-	//i.e., Daily Dog section link
-	li:nth-child(3){
-		padding-right: 0;
-		a, span {
-			color: $color--darkblue;
-		}
-		a:hover, a:focus {
-			border-bottom: 2px solid $color--darkblue;
-			&, span {
-				color: darken($color--darkblue, 10%);
-			}
-		}
-	}
-
 	.button {
 		@include border-radius(5);
 		padding: ($--baseline / 2 + px) ($--baseline + px);
@@ -694,10 +680,6 @@ header {
 	.fluid__overlay__inner {
 		@include calc-font-flow(14);
 		padding: $--baseline + px;
-	}
-
-	#dailydog article {
-		width: 100%;
 	}
 }
 
