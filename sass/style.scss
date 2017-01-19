@@ -200,6 +200,11 @@ em {
 	}
 }
 
+.flex-grid.flex-grid--fluid {
+	max-width: 2250px;
+	margin: 0 auto;
+}
+
 .grid-item--sm {
 	width: 33.3333333%;
 }

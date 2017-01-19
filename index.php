@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 
+<!-- nav for homepage only -->
 <nav class="nav--fade">
 	<ul>
 		<li><a href="#luna">Luna <span class="hidden--medium">the Aussie</span></a></li>
@@ -8,11 +9,13 @@
 	<a class="button" href="mailto:hello@jendowns.com">Say Hi! <i class="icon-paperplane"></i></a>
 </nav>
 
+<!-- header for homepage only -->
 <header>
 	<div class="container">
 		<div class="flex-grid">
 			<h1 class="center-vertically">Luna<br>&amp; Ash</h1>
 			<div class="wrapper--img">
+				<!-- When an image is simply decorative (like the sparkle emoji used below), you can leave a blank alt attribute. Source: http://a11yproject.com/posts/alt-text/ -->
 				<img class="hidden--medium img--sparkle" src="<?php echo get_template_directory_uri(); ?>/images/sparkle.png" width="90" height="90" alt="">
 				<img class="hidden--medium img--sparkle" src="<?php echo get_template_directory_uri(); ?>/images/sparkle.png" width="40" height="40" alt="">
 				<img class="hidden--medium img--sparkle" src="<?php echo get_template_directory_uri(); ?>/images/sparkle.png" width="50" height="50" alt="">
@@ -234,6 +237,55 @@
 					<span class="screen-reader">Next</span> <i class="icon-chevron-right" aria-hidden="true"></i>
 				</a>
 			</div>
+		</div>
+	</div>
+</section>
+<section id="dailydog">
+	<div class="container">
+		<h2>The Daily Dog</h2>
+		<h3>Posts about Luna &amp; Ash <i class="icon-heart" aria-hidden="true"></i></h3>
+		<div class="flex-grid">
+
+		<?php
+
+		$dogpost_query = array(
+			'posts_per_page' => 6,
+			'orderby' => 'post_date'
+		);
+
+		$dogposts = get_posts( $dogpost_query );
+
+		if(!empty ($dogposts)) {
+			// get posts inside this subcategory
+			foreach($dogposts as $dogpost){
+				$dogpost_id = $dogpost->ID;
+				$dogpost_date = $dogpost->post_date;
+				$dogpost_title = $dogpost->post_title;
+				$dogpost_link = get_post_permalink($dogpost_id);
+				$dogpost_preview = $dogpost->post_excerpt;
+				$short_preview = wp_trim_words($dogpost_preview, $num_words = 15, $more = '...' );
+				$formatted_date = date('F j, Y', strtotime($dogpost_date));
+
+				echo "<article>";
+				echo "<a href='" . $dogpost_link . "'>";
+				echo "<h4>" . $dogpost_title . "</h4>";
+				echo "</a>";
+				echo "<small>" . $formatted_date . "</small>";
+				echo "<p>" . $short_preview . "</p>";
+				echo "<p>";
+				echo "<a href='" . $dogpost_link . "'>";
+				echo "Read More";
+				echo "</a>";
+				echo "</p>";
+				echo "</article>";
+			}
+			wp_reset_query();
+		} else {
+			echo "<p class='no-posts'>Oops, we don't have any posts for the Daily Dog yet! Please check back later.</p>";
+		}
+
+		?>
+
 		</div>
 	</div>
 </section>
